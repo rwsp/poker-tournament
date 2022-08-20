@@ -20,10 +20,11 @@ const styles = {
 interface Props {
     blind: Blind;
     active: boolean;
+    onClick: () => void;
 }
 
-const BlindPill: React.FC<Props> = ({ blind, active }) => {
-    return <div css={ styles.root(active) }>{`${ blind.small }    ${ blind.big }`}</div>;
+const BlindPill: React.FC<Props> = ({ blind, active, onClick }) => {
+    return <div onClick={onClick} css={ styles.root(active) }>{`${ blind.small }    ${ blind.big }`}</div>;
 };
 
 export default BlindPill;

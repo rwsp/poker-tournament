@@ -3,8 +3,12 @@
 import * as React from 'react';
 import {css} from "@emotion/react";
 import {colors} from './colors';
-import {BLINDS, STARTING_STACK} from './config';
+import {Blind, BLINDS, STARTING_STACK} from './config';
 import BlindPill from './BlindPill';
+import {useCallback, useState} from 'react';
+import {equals} from 'ramda';
+import {ColorFormat, CountdownCircleTimer} from 'react-countdown-circle-timer'
+import CountdownCircleContents from './CountdownCircleContents';
 
 const styles = {
     root: css`
@@ -52,39 +56,74 @@ const styles = {
     `,
 }
 
-const App: React.FC = () => <div css={styles.root}>
-    <div css={styles.panel}>
+const App: React.FC = () => {
+    const [selectedBlindId, setSelectedBlindId] = useState<number>(0);
+    const [timerKey, setTimerKey] = useState<number>(new Date().getTime());
+
+    const handleSelected = useCallback(
+        (blind: Blind) => () => setSelectedBlindId(blind.id),
+        [],
+    );
+
+    const onNext = useCallback(
+        () => {
+            if (selectedBlindId === BLINDS.length - 1) {
+                return;
+            }
+
+            setSelectedBlindId(prev => prev + 1);
+            setTimerKey(new Date().getTime());
+        },
+        [selectedBlindId],
+    );
 
 
-        <div css={styles.blindSchedule}>
-            <div css={styles.blindScheduleLabel}>BLIND SCHEDULE</div>
+    return <div css={styles.root}>
+        <div css={styles.panel}>
 
-            <div css={styles.blinds}>
-                {
-                    BLINDS.map((blind, i) => <BlindPill active={i === 6} blind={blind} />)
-                }
+
+            <div css={styles.blindSchedule}>
+                <div css={styles.blindScheduleLabel}>BLIND SCHEDULE</div>
+
+                <div css={styles.blinds}>
+                    {
+                        BLINDS.map((blind) => <BlindPill
+                            active={blind.id === selectedBlindId}
+                            blind={blind}
+                            onClick={handleSelected(blind)}
+                        />)
+                    }
+                </div>
+
             </div>
 
+
+            <div css={styles.startingStackLabel}>STARTING STACK:&nbsp;
+                <span css={css`color: ${colors.green0};`}>{STARTING_STACK}</span>
+            </div>
+
+
         </div>
-
-
-        <div css={styles.startingStackLabel}>STARTING STACK:&nbsp;
-            <span css={css`color: ${colors.green0};`}>{STARTING_STACK}</span>
+        <div css={[styles.panel]}>
+            <CountdownCircleTimer
+                key={timerKey}
+                duration={1}
+                isPlaying
+                // @ts-ignore
+                colors={[colors.green0, colors.yellow0, colors.red0, colors.red1]}
+                colorsTime={[14 * 60, 10 * 60, 6 * 60, 0]}
+                strokeWidth={20}
+                size={700}
+                // @ts-ignore
+                trailColor={colors.black8}
+            >
+                {({ remainingTime }) => <CountdownCircleContents
+                    time={remainingTime}
+                    onNext={onNext}
+                /> }
+            </CountdownCircleTimer>
         </div>
-
-
-    </div>
-    <div css={styles.panel}>
-        When you have some text, how can you choose a typeface? Many people—professional designers included—go through an app’s font menu until we find one we like. But the aim of this module is to show that there are many considerations that can improve our type choices. By setting some useful constraints to aid our type selection, we can also develop a critical eye for analyzing type along the way.
-
-
-        A checklist for choosing type
-
-
-        Emotive considerations for choosing typefaces
-
-
-    </div>
-</div>;
+    </div>;
+}
 
 export default App;
