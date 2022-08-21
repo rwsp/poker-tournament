@@ -43,7 +43,7 @@ const styles = {
     `,
     blindScheduleLabel: css`
       font-size: 82px;
-      margin-bottom: 20px;
+      margin-bottom: 8px;
     `,
     blinds: css`
       display: flex;

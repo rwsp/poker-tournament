@@ -7,8 +7,8 @@ import {colors} from './colors';
 
 const styles = {
     root: (active: boolean) => css`
-      font-size: ${active ? 72 : 40}px;
-      line-height: ${active ? 150 : 50}px;
+      font-size: ${active ? 72 : 36}px;
+      line-height: ${active ? 80 : 42}px;
       color: ${active ? colors.green0 : colors.grey2 };
       cursor: ${active ? 'default ': 'pointer'};
       
