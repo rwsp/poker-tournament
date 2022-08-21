@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/poker-tournament/static/css/main.03a03e5a.css",
+    "main.js": "/poker-tournament/static/js/main.16d3f594.js",
+    "static/media/play-svg1.svg": "/poker-tournament/static/media/play-svg1.b6cc2978b32fa79f2467f132437933d5.svg",
+    "static/media/pause-svg.svg": "/poker-tournament/static/media/pause-svg.7bf921ec2f929a2e9bd027d75d2bf8d3.svg",
+    "index.html": "/poker-tournament/index.html",
+    "main.03a03e5a.css.map": "/poker-tournament/static/css/main.03a03e5a.css.map",
+    "main.16d3f594.js.map": "/poker-tournament/static/js/main.16d3f594.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.03a03e5a.css",
+    "static/js/main.16d3f594.js"
+  ]
+}
