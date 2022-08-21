@@ -59,9 +59,14 @@ const styles = {
 const App: React.FC = () => {
     const [selectedBlindId, setSelectedBlindId] = useState<number>(0);
     const [timerKey, setTimerKey] = useState<number>(new Date().getTime());
+    const [timerPaused, setTimerPaused] = useState<boolean>(true);
 
     const handleSelected = useCallback(
-        (blind: Blind) => () => setSelectedBlindId(blind.id),
+        (blind: Blind) => () => {
+            setSelectedBlindId(blind.id);
+            setTimerKey(new Date().getTime());
+            setTimerPaused(true);
+        },
         [],
     );
 
@@ -77,6 +82,7 @@ const App: React.FC = () => {
         [selectedBlindId],
     );
 
+    const onPauseToggle = useCallback(() => setTimerPaused(prev => !prev), []);
 
     return <div css={styles.root}>
         <div css={styles.panel}>
@@ -104,14 +110,14 @@ const App: React.FC = () => {
 
 
         </div>
-        <div css={[styles.panel]}>
+        <div css={[styles.panel, css`justify-content: center;`]}>
             <CountdownCircleTimer
                 key={timerKey}
-                duration={1}
-                isPlaying
+                duration={30 * 60}
+                isPlaying={!timerPaused}
                 // @ts-ignore
                 colors={[colors.green0, colors.yellow0, colors.red0, colors.red1]}
-                colorsTime={[14 * 60, 10 * 60, 6 * 60, 0]}
+                colorsTime={[26 * 60, 18 * 60, 12 * 60, 0]}
                 strokeWidth={20}
                 size={700}
                 // @ts-ignore
@@ -120,6 +126,8 @@ const App: React.FC = () => {
                 {({ remainingTime }) => <CountdownCircleContents
                     time={remainingTime}
                     onNext={onNext}
+                    isPaused={timerPaused}
+                    onPauseToggle={onPauseToggle}
                 /> }
             </CountdownCircleTimer>
         </div>

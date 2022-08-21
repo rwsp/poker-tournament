@@ -3,9 +3,15 @@
 import * as React from 'react';
 import {css} from "@emotion/react";
 import {colors} from './colors';
+import playIcon from './assets/play-svg1.svg';
+import pauseIcon from './assets/pause-svg.svg';
 
 const styles = {
-    timerTextContainer: css``,
+    timerTextContainer: css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `,
     timerText: css`
       font-size: 120px;
     `,
@@ -27,14 +33,29 @@ const styles = {
         background-color: ${colors.black9};
       }
     `,
+    playPauseButton: css`
+      margin-top: 120px;
+      font-size: 72px;
+      height: 120px;
+      width: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //border: 1px solid ${colors.green0};
+      background-color: transparent;
+      //border-radius: 150px;
+      cursor: pointer;
+    `,
 }
 
 interface Props {
     time: number;
     onNext: () => void;
+    isPaused: boolean;
+    onPauseToggle: () => void;
 }
 
-const CountdownCircleContents: React.FC<Props> =({time, onNext}) => {
+const CountdownCircleContents: React.FC<Props> =({time, onNext, isPaused, onPauseToggle}) => {
     return <div css={styles.timerTextContainer}>
         {
             !time && <div css={styles.nextButton} onClick={onNext}>{'>>'}</div>
@@ -45,6 +66,13 @@ const CountdownCircleContents: React.FC<Props> =({time, onNext}) => {
                 :
                 {time% 60 < 10 ? `0${time% 60}` : time % 60}
             </span>
+        }
+        {
+            time > 0 && <img
+                css={styles.playPauseButton}
+                onClick={onPauseToggle}
+                src={isPaused ? playIcon : pauseIcon}
+            />
         }
     </div>;
 }
