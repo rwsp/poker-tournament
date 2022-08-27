@@ -1,4 +1,4 @@
-export const STARTING_STACK = 3100;
+export const STARTING_STACK = 3600;
 export const STAGE_LENGTH = 20 * 60;
 
 
