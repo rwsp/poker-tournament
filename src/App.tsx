@@ -3,7 +3,7 @@
 import * as React from 'react';
 import {css} from "@emotion/react";
 import {colors} from './colors';
-import {Blind, BLINDS, STARTING_STACK} from './config';
+import {Blind, BLINDS, STAGE_LENGTH, STARTING_STACK} from './config';
 import BlindPill from './BlindPill';
 import {useCallback, useState} from 'react';
 import {equals} from 'ramda';
@@ -113,11 +113,11 @@ const App: React.FC = () => {
         <div css={[styles.panel, css`justify-content: center;`]}>
             <CountdownCircleTimer
                 key={timerKey}
-                duration={30 * 60}
+                duration={STAGE_LENGTH}
                 isPlaying={!timerPaused}
                 // @ts-ignore
                 colors={[colors.green0, colors.yellow0, colors.red0, colors.red1]}
-                colorsTime={[26 * 60, 18 * 60, 12 * 60, 0]}
+                colorsTime={[12 * 60, 10 * 60, 4 * 60, 0]}
                 strokeWidth={20}
                 size={700}
                 // @ts-ignore
