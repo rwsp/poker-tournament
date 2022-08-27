@@ -14,7 +14,7 @@ export const colors = {
     grey0: 'rgba(70, 70, 70)',
     grey1: 'rgba(80, 80, 80)',
     grey2: 'rgba(90, 90, 90)',
-    grey3: 'rgba(100, 100, 100)',
+    grey3: 'rgba(200, 200, 200)',
 
     green0: '#99bf9a',
 

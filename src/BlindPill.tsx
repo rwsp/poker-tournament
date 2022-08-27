@@ -9,7 +9,7 @@ const styles = {
     root: (active: boolean) => css`
       font-size: ${active ? 72 : 36}px;
       line-height: ${active ? 80 : 42}px;
-      color: ${active ? colors.green0 : colors.grey2 };
+      color: ${active ? colors.green0 : colors.grey3 };
       cursor: ${active ? 'default ': 'pointer'};
       
       :hover {
