@@ -9,6 +9,8 @@ import {useCallback, useState} from 'react';
 import {equals} from 'ramda';
 import {ColorFormat, CountdownCircleTimer} from 'react-countdown-circle-timer'
 import CountdownCircleContents from './CountdownCircleContents';
+import useSound from 'use-sound';
+import alarmSfx from '../src/assets/alarm.mp3';
 
 const styles = {
     root: css`
@@ -61,6 +63,8 @@ const App: React.FC = () => {
     const [timerKey, setTimerKey] = useState<number>(new Date().getTime());
     const [timerPaused, setTimerPaused] = useState<boolean>(true);
 
+    const [sfx] = useSound(alarmSfx);
+
     const handleSelected = useCallback(
         (blind: Blind) => () => {
             setSelectedBlindId(blind.id);
@@ -86,8 +90,6 @@ const App: React.FC = () => {
 
     return <div css={styles.root}>
         <div css={styles.panel}>
-
-
             <div css={styles.blindSchedule}>
                 <div css={styles.blindScheduleLabel}>BLIND SCHEDULE</div>
 
@@ -123,12 +125,17 @@ const App: React.FC = () => {
                 // @ts-ignore
                 trailColor={colors.black8}
             >
-                {({ remainingTime }) => <CountdownCircleContents
+                {({ remainingTime }) => <><CountdownCircleContents
                     time={remainingTime}
                     onNext={onNext}
                     isPaused={timerPaused}
                     onPauseToggle={onPauseToggle}
-                /> }
+                />
+                {
+                    remainingTime === 0 && sfx()
+                }
+
+                </> }
             </CountdownCircleTimer>
         </div>
     </div>;
