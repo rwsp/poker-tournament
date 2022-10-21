@@ -1,5 +1,5 @@
 export const STARTING_STACK = 1600;
-export const STAGE_LENGTH = 5;
+export const STAGE_LENGTH = 4;
 
 
 export interface Blind {
